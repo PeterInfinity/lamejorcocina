@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>lamejorcocinaear</artifactId>
+	<packaging>ear</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<modules>
+						<ejbModule>
+							<groupId>co.com.lamejorcocinaparent</groupId>
+							<artifactId>lamejorcocinamodel</artifactId>
+							<bundleFileName>lamejorcocinamodel.jar</bundleFileName>
+						</ejbModule>
+						<webModule>
+							<groupId>co.com.lamejorcocinaparent</groupId>
+							<artifactId>lamejorcocinaweb</artifactId>
+							<bundleFileName>lamejorcocinaweb.war</bundleFileName>
+							<contextRoot>/lamejorcocinaweb</contextRoot>
+						</webModule>
+					</modules>
+					<earSourceDirectory>EarContent</earSourceDirectory>
+					<generateApplicationXml>false</generateApplicationXml>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>co.com.lamejorcocinaparent</groupId>
+			<artifactId>lamejorcocinamodel</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>co.com.lamejorcocinaparent</groupId>
+			<artifactId>lamejorcocinaweb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<parent>
+		<groupId>co.com.lamejorcocinaparent</groupId>
+		<artifactId>lamejorcocinaparent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+</project>

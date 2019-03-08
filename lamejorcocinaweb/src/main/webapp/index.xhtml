@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form id="form">
+
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<h1>Factura</h1>
+		<h:panelGrid columns="3" cellpadding="5">
+
+			<p:outputLabel value="Mesa" for="selectMesa" />
+			<p:selectOneMenu id="selectMesa" value="#{keyboardBean.factura.mesa}" style="min-width: 187px;" converter="SelectItemToEntityConverter"
+				required="true">
+				<f:selectItem itemLabel="Seleccione..." itemValue="" />
+				<f:selectItems itemLabel="#{mesa.ubicacion}" value="#{DataCocina.listMesa}" var="mesa" />
+			</p:selectOneMenu>
+			<p:message for="selectMesa" />
+
+			<p:outputLabel value="Camarero" for="selectCamarero" />
+			<p:selectOneMenu id="selectCamarero" value="#{keyboardBean.factura.camarero}" style="min-width: 187px;" converter="SelectItemToEntityConverter"
+				required="true">
+				<f:selectItem itemLabel="Seleccione..." itemValue="" />
+				<f:selectItems itemLabel="#{camarero.nombres}  #{camarero.apellido1}  #{camarero.apellido2}" value="#{DataCocina.listCamareros}" var="camarero" />
+			</p:selectOneMenu>
+			<p:message for="selectCamarero" />
+
+			<p:outputLabel value="Nombre cliente" for="nombreCliente" />
+			<p:inputText id="nombreCliente" value="#{keyboardBean.factura.cliente.nombres}" required="true" />
+			<p:message for="nombreCliente" />
+
+			<p:outputLabel value="Primer apellido cliente" for="primerApellidoCliente" />
+			<p:inputText id="primerApellidoCliente" value="#{keyboardBean.factura.cliente.apellido1}" required="true" />
+			<p:message for="primerApellidoCliente" />
+
+			<p:outputLabel value="Segundo apellido cliente" for="segundoApellidoCliente" />
+			<p:inputText id="segundoApellidoCliente" value="#{keyboardBean.factura.cliente.apellido2}" required="true" />
+			<p:message for="segundoApellidoCliente" />
+
+			<p:commandButton value="Registrar factura" id="ajax" action="#{keyboardBean.registrarFactura()}" style="margin-right:20px;"
+				styleClass="ui-priority-primary" update="@form"
+				process="@this,selectMesa,selectCamarero,nombreCliente,primerApellidoCliente,segundoApellidoCliente" />
+			<p:message for="ajax" />
+
+		</h:panelGrid>
+		<h:panelGrid>
+			<h1>Detalle factura</h1>
+			<h:form>
+				<h:panelGrid columns="3" cellpadding="5">
+					<p:outputLabel value="Plato" for="txtPalto" />
+					<p:inputText id="txtPalto" value="#{keyboardBean.detalleFacturaNuevo.plato}" required="true" />
+					<p:message for="txtPalto" />
+
+					<p:outputLabel value="Importe" for="txtImporte" />
+					<p:inputNumber id="txtImporte" value="#{keyboardBean.detalleFacturaNuevo.importe}" required="true" />
+					<p:message for="txtImporte" />
+
+					<p:outputLabel value="Cocinero" for="selectCocinero" />
+					<p:selectOneMenu id="selectCocinero" value="#{keyboardBean.cocinero}" style="min-width: 187px;" converter="SelectItemToEntityConverter"
+						required="true">
+						<f:selectItem itemLabel="Seleccione..." itemValue="#{null}" />
+						<f:selectItems itemLabel="#{cocinero.nombres}" value="#{DataCocina.listCocinero}" var="cocinero" />
+					</p:selectOneMenu>
+					<p:message for="selectCocinero" />
+
+					<p:commandButton value="Registrar detalle" id="btnForm" action="#{keyboardBean.registrarDetalle()}" update="@(form)"
+						process="@this,txtPalto,txtImporte,selectCocinero" />
+
+				</h:panelGrid>
+			</h:form>
+			<h1>Detalles de la factura</h1>
+			<p:dataTable id="tabla" var="detalle" value="#{keyboardBean.listDetalleFactura}">
+				<p:column headerText="Plato">
+					<h:outputText value="#{detalle.plato}" />
+				</p:column>
+
+				<p:column headerText="Importe">
+					<h:outputText value="#{detalle.importe}" />
+				</p:column>
+
+				<p:column headerText="Nombre Cocinero">
+					<h:outputText value="#{detalle.cocinero.nombres}" />
+				</p:column>
+			</p:dataTable>
+
+			<h1>Total vendido por camarero</h1>
+
+			<p:commandButton value="Consultar totales vendidos" id="btnConsultarTotalesVendidos" action="#{keyboardBean.consultarTotalesCamarero()}"
+				update="@form,tablaTotales" process="@this" />
+			<p:dataTable id="tablaTotales" var="total" value="#{keyboardBean.listTotalVendidoCamarero}">
+				<p:column headerText="Camarero nombres">
+					<h:outputText value="#{total.camarero.nombres} #{total.camarero.apellido1} #{total.camarero.apellido2}" />
+				</p:column>
+
+				<p:column headerText="Fecha">
+					<h:outputText value="#{total.fecha}" />
+				</p:column>
+
+				<p:column headerText="Total vendido">
+					<h:outputText value="#{total.totalVendido}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
