@@ -1,11 +1,13 @@
 # lamejorcocina
 proyecto java en J2EE, primefaces 5, wildfly 14x y postgres 9x
 
-Requisitos
+REQUISITOS:
+
 1. saber clonar un proyecto con versionamiento GIT
 2. conocimientos en Eclipse, J2EE
 3. conoceel servidor Wildfly y la base de datos Postgres
 
+DESPLIEGUE:
 
 1. descargar wildfly 14 y configurarlo como target-runtime en eclipse, usar el standalone.xml
 2. colocar el DS en el standalone.xml del wildfly:
