@@ -5,7 +5,7 @@ REQUISITOS:
 
 1. saber clonar un proyecto con versionamiento GIT
 2. conocimientos en Eclipse, J2EE
-3. conoceel servidor Wildfly y la base de datos Postgres
+3. conocer el servidor Wildfly y la base de datos Postgres
 
 DESPLIEGUE:
 
